@@ -1,28 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //[RequireComponent(typeof(BoxCollider2D))]
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
 
-    private BoxCollider2D boxCollider;
-    private Vector3 moveDelta;
+    
+    [SerializeField]
+    private float movementSpeed = 1.0f;
 
     // Start is called before the first frame update
     private void Start()
     {
-        boxCollider = GetComponent<BoxCollider2D>();
+        BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
 
     }
 
     private void FixedUpdate()
     {
+        
+
+
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
         // Reset MoveDelta
-        moveDelta = new Vector3(x, y, 0);
+        Vector3 moveDelta = new Vector3(x, y, 0);
 
         //Swap spirte direction, whether you're going right or left
         if (moveDelta.x > 0)
@@ -31,6 +33,6 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
 
         //Make this thing move !
-        transform.Translate(moveDelta * Time.deltaTime);
+        transform.Translate(moveDelta * Time.deltaTime * movementSpeed);
     }
 }
